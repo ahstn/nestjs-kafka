@@ -1,0 +1,46 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+      http:
+  jmx:
+    jar_path: /opt/opentelemetry-jmx-metrics.jar
+    endpoint: localhost:9999
+    target_system: kafka,jvm
+  kafkametrics:
+    protocol_version: 2.0.0 # Required.
+    scrapers: # Required.
+      - consumer
+      - topics
+      - brokers
+    brokers: kafka:9092
+
+processors:
+  batch:
+    timeout: 10s
+  resourcedetection:
+    detectors: [env, docker]
+
+exporters:
+  logging:
+    loglevel: info
+  prometheus:
+    endpoint: "0.0.0.0:9464"
+    resource_to_telemetry_conversion:
+      enabled: true
+  zipkin:
+    endpoint: "http://zipkin-all-in-one:9411/api/v2/spans"
+
+service:
+  telemetry:
+    logs:
+      level: "debug"
+  pipelines:
+    traces:
+      receivers: [otlp]
+      exporters: [zipkin]
+      processors: [batch]
+    metrics:
+      receivers: [otlp,jmx,kafkametrics]
+      exporters: [logging, prometheus]
+      processors: [batch]
