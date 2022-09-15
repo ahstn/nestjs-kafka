@@ -7,8 +7,9 @@
 - Two [NestJS] microservices packaged with Docker.
   - [apps/api/] : REST API producing to Kafka
   - [apps/consumers/] : Service for consuming Kafka Events, see: [Kafka | NestJS]
+  - Strictly typed events via type definitions in [packages/types/]
 - Kafka, Schema Registry and [provectus/kafka-ui].
-  - For Schema Registry info, see: [Kafka with AVRO, JSON and Protobuf| medium]
+  - For Schema Registry info, see: [Kafka with AVRO, JSON and Protobuf | medium]
 - OpenTelemetry Collector using [infra/opentelemetry-collector.yaml].
   - Receivers with [kafka-metrics-receiver], JMX and OLTP
   - Exporters with [prometheus-exporter]
@@ -36,6 +37,7 @@ npx turbo run dev
 [provectus/kafka-ui]: https://github.com/provectus/kafka-ui
 [apps/api/]: ./apps/api/
 [apps/consumers/]: ./apps/consumers/
+[packages/types/]: ./packages/types/
 [tsconfig/base.json]: ./packages/tsconfig/base.json
 [tsconfig/nestjs.json]: ./packages/tsconfig/base.json
 [infra/opentelemetry-collector.yaml]: ./infra/opentelemetry-collector.yaml
