@@ -1,5 +1,5 @@
 {
-  "name": "consumers",
+  "name": "@nestjs-kafka/consumers",
   "version": "0.0.1",
   "description": "",
   "author": "",
@@ -34,6 +34,8 @@
     "@nestjs/cli": "^9.0.0",
     "@nestjs/schematics": "^9.0.0",
     "@nestjs/testing": "^9.0.0",
+    "@nestjs-kafka/eslint": "*",
+    "@nestjs-kafka/tsconfig": "*",
     "@types/express": "^4.17.13",
     "@types/jest": "28.1.8",
     "@types/node": "^16.0.0",
