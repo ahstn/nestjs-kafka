@@ -33,6 +33,7 @@
     "@nestjs/testing": "^9.0.0",
     "@nestjs-kafka/eslint": "*",
     "@nestjs-kafka/tsconfig": "*",
+    "@nestjs-kafka/types": "*",
     "@types/express": "^4.17.13",
     "@types/jest": "28.1.8",
     "@types/node": "^16.0.0",

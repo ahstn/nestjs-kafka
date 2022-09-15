@@ -1,4 +1,4 @@
-import { log } from 'logger';
+import { log } from '@nestjs-kafka/logger';
 import {
   Controller,
   Get,
@@ -6,15 +6,12 @@ import {
   OnModuleDestroy,
   OnModuleInit,
 } from '@nestjs/common';
-import { AppService } from './app.service';
 import { ClientKafka } from '@nestjs/microservices';
+import { RockEvent } from '@nestjs-kafka/types';
 
 @Controller()
 export class AppController implements OnModuleInit, OnModuleDestroy {
-  constructor(
-    private readonly appService: AppService,
-    @Inject('my-kafka') private readonly client: ClientKafka,
-  ) {}
+  constructor(@Inject('my-kafka') private readonly client: ClientKafka) {}
 
   async onModuleInit() {
     ['medium.rocks'].forEach((key) =>
@@ -31,9 +28,7 @@ export class AppController implements OnModuleInit, OnModuleDestroy {
   emit() {
     log('emitting event to medium.rocks');
     // client.send can be used to fetch a response
-    return this.client.emit('medium.rocks', {
-      foo: 'bar',
-      data: new Date().toString(),
-    });
+    const e: RockEvent = { subject: 'test', date: new Date().toString() };
+    return this.client.emit('medium.rocks', e);
   }
 }
