@@ -3,17 +3,18 @@
   "version": "0.0.0",
   "private": true,
   "license": "MIT",
+  "types": "./dist/index.d.ts",
   "scripts": {
     "build": "tsc",
     "clean": "rm -rf dist",
     "dev": "tsc -w",
-    "lint": "TIMING=1 eslint src/**/*.ts* --fix"
+    "lint": "TIMING=1 eslint '*.ts' --fix"
   },
   "devDependencies": {
-    "@nestjs-kafka/eslint": "*",
     "@nestjs-kafka/tsconfig": "*",
-    "@types/jest": "^26.0.22",
+    "@types/jest": "^26.0.24",
     "eslint": "^7.32.0",
+    "eslint-config-nestjs-kafka": "*",
     "typescript": "^4.5.3"
   }
 }

@@ -1,4 +1,4 @@
 module.exports = {
   root: true,
-  extends: ["@nestjs-kafka/eslint"],
+  extends: ["nestjs-kafka"],
 };
