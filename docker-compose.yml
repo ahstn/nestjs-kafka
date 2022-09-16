@@ -70,9 +70,11 @@ services:
       - source: opentelemetry
         target: /etc/opentelemetry/opentelemetry.yaml
     ports:
-      - "9464:9464"
-      - "4317:4317"
-      - "4318:4318"
+      - 9464:9464
+      - 4317:4317
+      - 4318:4318
+    profiles:
+      - telemetry
   prometheus:
     image: prom/prometheus:latest
     configs:
@@ -80,9 +82,24 @@ services:
         target: /etc/prometheus/prometheus.yml
     ports:
       - 9090:9090
+    profiles:
+      - telemetry
+  vector:
+    image: timberio/vector:0.24.1-debian
+    configs:
+      - source: vector
+        target: /etc/vector/vector.toml
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    profiles:
+      - telemetry
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
 
 configs:
   opentelemetry:
     file: ./infra/opentelemetry-collector.yaml
   prometheus:
     file: ./infra/prometheus-scape.yaml
+  vector:
+    file: ./infra/vector.toml

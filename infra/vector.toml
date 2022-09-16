@@ -1,0 +1,19 @@
+[api]
+enabled = true
+address = "0.0.0.0:8686"
+
+[sources.docker]
+type = "docker_logs"
+include_containers = ["kafka", "collector"]
+
+[sources.kafka]
+type = "kafka"
+bootstrap_servers = "kafka:9092"
+group_id = "vector-group-server"
+topics = [ "medium.rocks" ]
+
+[sinks.console]
+inputs = ["docker", "kafka"]
+target = "stdout"
+type = "console"
+encoding.codec = "json"
